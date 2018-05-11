@@ -15,4 +15,5 @@ Example usage:
      
      print('Pixel RGB value at value X, Y:', a.getPixels()[0][19]) # Return the RGB value as a list (note that the first pixel starts on 0 and not 1)
      
+     ----
        
