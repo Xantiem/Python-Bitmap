@@ -210,7 +210,7 @@ class Image:
     
     def getPixels(self):  
         """Convert the raw pixels to an X Y grid system"""
-        array = np.array(list(self.raw[54:]))
+        array = np.array(list(self.raw[Image(self.raw).__getBytesAwayFromColorTable():]))
         grid = array.reshape(-1, Image.getBitmapWidth(self), 3)
         self.grid = grid.tolist()
         return grid.tolist()
@@ -228,6 +228,9 @@ class Image:
                     entire.append(k)
         return bytes(entire)
     
+    def create(self):
+        
+        pass
     
     
         
