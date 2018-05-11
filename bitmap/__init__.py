@@ -49,6 +49,7 @@ class Image:
     def __init__(self, content):
         
         self.raw = content # Return the raw byte values
+        self.grid = [] # Return a grid
         
     # -------------------------------------------------------------------------
     # END OF UTILS
@@ -208,12 +209,10 @@ class Image:
         return self.raw[Image(self.raw).__getBytesAwayFromColorTable():]
     
     def getPixels(self):  
-        
         """Convert the raw pixels to an X Y grid system"""
-        
         array = np.array(list(self.raw[54:]))
-        
         grid = array.reshape(-1, Image.getBitmapWidth(self), 3)
+        self.grid = grid.tolist()
         return grid.tolist()
         
     # -------------------------------------------------------------------------
@@ -223,12 +222,15 @@ class Image:
     def reform(self):
         """Convert the X Y grid system to raw pixels"""
         entire = []
-        for i in a:
+        for i in self.grid:
             for j in i:
                 for k in j:
                     entire.append(k)
         return bytes(entire)
     
+    
+    
+        
         
 # -----------------------------------------------------------------------------
 # Credits:
