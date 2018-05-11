@@ -1,5 +1,5 @@
 # Python-Bitmap
-A dependency free library to read bitmap images. 
+A (nearly) dependency free library to read bitmap images. 
 
 Example usage:
 
