@@ -22,7 +22,8 @@ __all__ = [
         "getHeaderAndHeaderInfo",
         "getColorTable",
         "getRawPixelData",
-        "getPixels"
+        "getPixels",
+        "reform"
         ]
 
 __doc__ = """Python-Bitmap
@@ -215,7 +216,19 @@ class Image:
         grid = array.reshape(-1, Image.getBitmapWidth(self), 3)
         return grid.tolist()
         
-        
+    # -------------------------------------------------------------------------
+    # HIGHER LEVEL
+    # -------------------------------------------------------------------------
+    
+    def reform(self):
+        """Convert the X Y grid system to raw pixels"""
+        entire = []
+        for i in a:
+            for j in i:
+                for k in j:
+                    entire.append(k)
+        return bytes(entire)
+    
         
 # -----------------------------------------------------------------------------
 # Credits:
