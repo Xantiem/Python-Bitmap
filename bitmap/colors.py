@@ -12,7 +12,8 @@ def fromRGB(rgb):
     """ 
     return {"red":rgb[0], "green":rgb[1], "blue":rgb[2]}
 
-def byteRGB(rgb:list):
+
+    
 
 
 
