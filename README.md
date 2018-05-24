@@ -27,3 +27,7 @@ Convert to grid:
 Convert from grid back to image:
 
     b = bitmap.reform(a)
+
+Get colour value:
+     import bitmap.colors
+     print(bitmap.colors.fromRGB(a[2][3]))
