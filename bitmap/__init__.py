@@ -23,7 +23,9 @@ __all__ = [
         "getColorTable",
         "getRawPixelData",
         "getPixels",
-        "reform"
+        "reform",
+        "replace",
+        "create"
         ]
 
 __doc__ = """Python-Bitmap
@@ -209,7 +211,17 @@ class Image:
         return self.raw[Image(self.raw).__getBytesAwayFromColorTable():]
     
     def getPixels(self):  
-        """Convert the raw pixels to an X Y grid system"""
+        """Convert the raw pixels to an X Y grid system
+        For example:
+            
+            x  = open('test1.bmp', 'rb').read()
+
+            import bitmap
+
+            a = bitmap.Image(x)
+
+            print(a.getPixels()[0][0])
+        """
         array = np.array(list(self.raw[Image(self.raw).__getBytesAwayFromColorTable():]))
         grid = array.reshape(-1, Image.getBitmapWidth(self), 3)
         self.grid = grid.tolist()
@@ -218,22 +230,33 @@ class Image:
     # -------------------------------------------------------------------------
     # HIGHER LEVEL
     # -------------------------------------------------------------------------
+
+def grid(data):
+    """Convert the raw pixels to an X Y grid system
+    For example:
+            
+        x  = open('test1.bmp', 'rb').read()
+        import bitmap
+
+        a = bitmap.Image(x)
+        print(a.getPixels()[0][0])
+    """
+    return Image(data).getPixels()
     
-    def reform(self):
-        """Convert the X Y grid system to raw pixels"""
-        entire = []
-        for i in self.grid:
-            for j in i:
-                for k in j:
-                    entire.append(k)
-        return bytes(entire)
+def reform(data):
+    """Turn a grid into raw pixels"""
+    new_data = b""
+    for all_ in data:
+        for cols in all_:
+            new_data += bytes(cols)
+               
+
+    return new_data
+            
+
     
-    def create(self):
-        
-        pass
     
-    
-        
+
         
 # -----------------------------------------------------------------------------
 # Credits:
