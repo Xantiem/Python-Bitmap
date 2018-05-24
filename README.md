@@ -17,3 +17,13 @@ Example usage:
      
      ----
        
+
+Convert to grid:
+
+    x  = open('test1.bmp', 'rb').read()
+    import bitmap
+    a = bitmap.grid(x)
+
+Convert from grid back to image:
+
+    b = bitmap.reform(a)
