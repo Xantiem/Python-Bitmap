@@ -222,10 +222,16 @@ class Image:
 
             print(a.getPixels()[0][0])
         """
-        array = np.array(list(self.raw[Image(self.raw).__getBytesAwayFromColorTable():]))
-        grid = array.reshape(-1, Image.getBitmapWidth(self), 3)
-        self.grid = grid.tolist()
-        return grid.tolist()
+        padding = ((Image.getBitmapWidth(self) * 3) - (Image.getBitmapWidth(self) * 3) % 4 + 4) - (Image.getBitmapWidth(self) * 3) if Image.getBitmapWidth(self) * 3 % 4 != 0 else 0
+        dataStart = Image(self.raw).__getBytesAwayFromColorTable()
+        dataEnd = Image(self.raw).__getBytesAwayFromColorTable() + (Image.getBitmapWidth(self) * Image.getBitmapHeight(self) * 3) + (Image.getBitmapHeight(self) * padding)
+        array = np.array(list(self.raw[dataStart:dataEnd]))
+        lines = array.reshape(Image.getBitmapHeight(self), -1)
+        for line in lines:
+            # ignore the end-of-line padding when generating grid and get pixel color data
+            cleanLine = line[:Image.getBitmapWidth(self) * 3].reshape(Image.getBitmapWidth(self), 3)
+            self.grid = self.grid + [cleanLine.tolist()]
+        return self.grid
         
     # -------------------------------------------------------------------------
     # HIGHER LEVEL
